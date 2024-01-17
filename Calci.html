@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ipButtons {
+            background-color: rgb(168, 118, 118);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        #mainDiv1 {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            background-color: rgb(146, 233, 199);
+            padding: 20px;
+
+        }
+
+        .opButtons {
+            background-color: rgb(168, 118, 118);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        #mainDiv2 {
+            display: grid;
+            background-color: rgb(146, 233, 199);
+            padding: 20px;
+        }
+
+        #mainDiv3 {
+            display: grid;
+            background-color: rgb(146, 233, 199);
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #subDiv {
+            display: inline-flex;
+        }
+
+        #submit {
+            height: 50px;
+            width: 70px;
+            align-items: center;
+            background-color: rgb(168, 118, 118);
+            justify-content: center;
+            margin: auto;
+
+        }
+
+        #reset {
+            height: 50px;
+            width: 70px;
+            align-items: center;
+            background-color: rgb(168, 118, 118);
+            justify-content: center;
+            margin: auto;
+        }
+
+        #root {
+            gap: 100px;
+            display: flex;
+            padding: 10px;
+            border: solid;
+            background-color: rgb(178, 164, 197);
+            justify-content: center;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+
+    <script>
+
+        obj = {
+            firstNumber: "",
+            secondNumber: "",
+            operator: "",
+            targetValue: 100
+        }
+
+
+        function updateObjValue(value) {
+            if (value === '+' || value === '-' || value === '*' || value === '/') {
+                obj.operator = value;
+            }
+            else if (obj.operator === '') {
+                obj.firstNumber += value;
+            }
+            else {
+                obj.secondNumber += value;
+            }
+
+            console.log(obj.firstNumber)
+            console.log(obj.operator)
+            console.log(obj.secondNumber);
+        }
+
+        renderUI = () => {
+            let rootElement = document.getElementById('root');
+
+            rootElement.innerHTML = "";
+
+            /* Main Div 1 for creating Input Buttons 0-9*/
+
+            let mainDiv1 = document.createElement("div")
+            mainDiv1.id = "mainDiv1";
+            let InputButtonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+            let fno = ""
+            function createButton(number) {
+
+                let button = document.createElement('button');
+                button.className = "ipButtons"
+                button.textContent = number;
+                mainDiv1.appendChild(button)
+                button.addEventListener("click", function () {
+                    updateObjValue(number);
+                })
+
+            }
+
+
+
+            InputButtonArray.forEach(i => {
+                createButton(i);
+            });
+
+
+
+
+            rootElement.appendChild(mainDiv1)
+
+            /* Main Div 2 for creating Operation Buttons for "+,-,*,/"     */
+            let mainDiv2 = document.createElement("div")
+            mainDiv2.id = "mainDiv2"
+            let OperationArray = ["+", "-", "*", "/"];
+            function createOpButton(x) {
+                let button = document.createElement('button');
+                button.className = "opButtons"
+                button.textContent = x
+                mainDiv2.appendChild(button)
+                button.addEventListener("click", function () {
+                    updateObjValue(x);
+                })
+            }
+
+            OperationArray.forEach(j => {
+                createOpButton(j);
+            });
+
+            rootElement.appendChild(mainDiv2)
+
+            let mainDiv3 = document.createElement("div")
+            mainDiv3.id = "mainDiv3"
+
+            let subDiv1 = document.createElement("div")
+            subDiv1.id = "subDiv"
+
+            let submitButton = document.createElement("button")
+            submitButton.textContent = "Submit"
+            submitButton.id = "submit"
+            submitButton.addEventListener("click", function () {
+                let output = document.getElementById("resultx")
+
+                switch (obj.operator) {
+                    case '+':
+                        output.textContent = parseInt(obj.firstNumber) + parseInt(obj.secondNumber);
+                        if (output.textContent >= 100) {
+                            output.style.color = "red"
+                        }
+                        break;
+                    case '-':
+                        output.textContent = parseInt(obj.firstNumber) - parseInt(obj.secondNumber)
+                        if (output.textContent >= 100) {
+                            output.style.color = "red"
+                        }
+                        break;
+                    case '*':
+                        output.textContent = parseInt(obj.firstNumber) * parseInt(obj.secondNumber)
+                        if (output.textContent >= 100) {
+                            output.style.color = "red"
+                        }
+                        break;
+                    case '/':
+                        output.textContent = parseInt(obj.firstNumber) / parseInt(obj.secondNumber)
+                        if (output.textContent >= 100) {
+                            output.style.color = "red"
+                        }
+                        break;
+                }
+            })
+
+
+            let resetButton = document.createElement("button")
+            resetButton.textContent = "Reset"
+            resetButton.id = "reset"
+            resetButton.addEventListener("click", function () {
+                obj.firstNumber = "";
+                obj.secondNumber = "";
+                obj.operator = "";
+                renderUI();
+
+                console.log(obj.firstNumber)
+                console.log(obj.operator)
+                console.log(obj.secondNumber);
+            })
+
+            subDiv1.appendChild(resetButton)
+
+
+            let resultLabel = document.createElement("label")
+            resultLabel.textContent = "Your Output Is : "
+
+            let result = document.createElement("div")
+            result.id = "resultx"
+
+            mainDiv3.appendChild(resultLabel)
+            mainDiv3.appendChild(result)
+
+            let targetValueDiv = document.createElement("div")
+            let tValue = document.createElement("label")
+            tValue.textContent = "Our Target Value Is " + obj.targetValue
+
+            targetValueDiv.appendChild(tValue)
+            mainDiv3.appendChild(targetValueDiv)
+
+            subDiv1.appendChild(submitButton)
+            mainDiv3.appendChild(subDiv1)
+            rootElement.appendChild(mainDiv3)
+
+        }
+
+        // add event listener to each button in the array
+
+
+        renderUI()
+    </script>
+</body>
+
+</html>

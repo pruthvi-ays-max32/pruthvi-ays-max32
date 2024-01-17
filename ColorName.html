@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .boxcolor {
+            width: 50px;
+            height: 50px;
+            gap: 10px;
+
+        }
+
+        .button {
+            display: flex;
+        }
+
+        #div2 {
+            margin-left: "2px";
+        }
+
+        #div3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-left: 5px;
+
+        }
+
+        #root {
+            display: flex;
+            margin-left: "2px";
+            padding: 12%;
+            justify-content: space-around;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border-style: solid
+        }
+
+        #resultx {
+            font-size: large;
+            padding: 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+
+
+    </div>
+
+
+    <script>
+        let data = {
+            text: "",
+            color: "",
+        }
+
+        function renderUI() {
+            const rootElement = document.getElementById("root");
+            rootElement.innerHTML = '';
+
+            let div1 = document.createElement("div")
+            div1.className = "button"
+            let colorArray = ["red", "yellow", "green"]
+            function createButton(color) {
+                let button = document.createElement('button');
+                button.className = "boxcolor"
+                button.style.backgroundColor = color;
+                button.style.margin = "5px",
+                    div1.appendChild(button)
+            }
+            colorArray.forEach(color => {
+                createButton(color);
+            });
+
+            rootElement.appendChild(div1)
+
+            // color update in object
+            div1.addEventListener("click", function (event) {
+                if (event.target.tagName === "BUTTON") {
+                    // console.log(event.target)
+                    // console.log(event.target.tagName)
+                    let color = event.target.style.backgroundColor;
+                    updateColorObj(color);
+
+                    const colorButton = document.querySelectorAll(".boxcolor")
+                    for (let i = 0; i < colorButton.length; i++) {
+                        if (colorButton[i] === event.target) {
+                            colorButton[i].style.border = "5px solid black";
+                        } else {
+                            colorButton[i].style.border = "1px solid black";
+                        }
+                    }
+                }
+            })
+
+            let mainDiv2 = document.createElement("div");
+            mainDiv2.id = 'div2'
+            let textArea = document.createElement("div");
+            let name = document.createElement("label")
+            name.textContent = "Enter Text Here :";
+            textArea.appendChild(name)
+            mainDiv2.appendChild(textArea)
+
+            let enter_text = document.createElement("div");
+            let input1 = document.createElement("input");
+
+            // Updating the value
+            input1.addEventListener("input", function () {
+                updateObject(input1.value)
+            })
+            input1.type = "text"
+            enter_text.appendChild(input1)
+            mainDiv2.appendChild(enter_text)
+
+            rootElement.appendChild(mainDiv2)
+
+            let mainDiv3 = document.createElement("div")
+            mainDiv3.id = "div3"
+            let submitButton = document.createElement("button");
+            submitButton.type = "button";
+            submitButton.textContent = "Submit"
+            mainDiv3.appendChild(submitButton)
+
+            let resetButton = document.createElement("button");
+            resetButton.type = "button";
+            resetButton.textContent = "Reset"
+            mainDiv3.appendChild(resetButton)
+
+            rootElement.appendChild(mainDiv3)
+
+            let result = document.createElement("div")
+            let resultLabel = document.createElement("label")
+            result.textContent = "Entered Text Is : ";
+            resultLabel.id = "resultx"
+            result.appendChild(resultLabel)
+            root.appendChild(result)
+
+
+
+
+            submitButton.addEventListener("click", function () {
+                const outputx = document.querySelector("#resultx")
+                outputx.textContent = data.text;
+                outputx.style.color = data.color;
+            })
+
+            resetButton.addEventListener("click", function () {
+                data.color = ""
+                data.text = ""
+                renderUI();
+            })
+        }
+
+        function updateObject(text) {
+            data.text = text;
+
+        }
+        function updateColorObj(color) {
+            data.color = color;
+        }
+
+        renderUI()
+
+
+    </script>
+</body>
+
+</html>
