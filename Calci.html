@@ -7,7 +7,8 @@
     <title>Document</title>
     <style>
         .ipButtons {
-            background-color: rgb(168, 118, 118);
+            margin: 2px;
+            background-color: rgb(156, 226, 171);
             border: 1px solid rgba(0, 0, 0, 0.8);
             padding: 30px;
             font-size: 30px;
@@ -15,15 +16,16 @@
         }
 
         #mainDiv1 {
-            display: grid;
-            grid-template-columns: auto auto auto;
-            background-color: rgb(146, 233, 199);
+            width: 250px;
+            display: flexbox;
+            background-color: rgb(227, 243, 80);
             padding: 20px;
 
         }
 
         .opButtons {
-            background-color: rgb(168, 118, 118);
+            margin: 2px;
+            background-color: rgba(89, 205, 240, 0.356);
             padding: 20px;
             font-size: 30px;
             text-align: center;
@@ -31,13 +33,13 @@
 
         #mainDiv2 {
             display: grid;
-            background-color: rgb(146, 233, 199);
+            background-color: rgb(248, 245, 80);
             padding: 20px;
         }
 
         #mainDiv3 {
             display: grid;
-            background-color: rgb(146, 233, 199);
+            background-color: rgb(248, 245, 80);
             padding: 20px;
             justify-content: center;
             align-items: center;
@@ -52,7 +54,7 @@
             height: 50px;
             width: 70px;
             align-items: center;
-            background-color: rgb(168, 118, 118);
+            background-color: rgb(171, 218, 133);
             justify-content: center;
             margin: auto;
 
@@ -62,7 +64,7 @@
             height: 50px;
             width: 70px;
             align-items: center;
-            background-color: rgb(168, 118, 118);
+            background-color: rgb(171, 218, 133);
             justify-content: center;
             margin: auto;
         }
@@ -87,27 +89,10 @@
     <script>
 
         obj = {
-            firstNumber: "",
-            secondNumber: "",
+            firstNumber: "0",
+            secondNumber: "0",
             operator: "",
-            targetValue: 100
-        }
-
-
-        function updateObjValue(value) {
-            if (value === '+' || value === '-' || value === '*' || value === '/') {
-                obj.operator = value;
-            }
-            else if (obj.operator === '') {
-                obj.firstNumber += value;
-            }
-            else {
-                obj.secondNumber += value;
-            }
-
-            console.log(obj.firstNumber)
-            console.log(obj.operator)
-            console.log(obj.secondNumber);
+            targetValue: 1000
         }
 
         renderUI = () => {
@@ -121,7 +106,6 @@
             mainDiv1.id = "mainDiv1";
             let InputButtonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-            let fno = ""
             function createButton(number) {
 
                 let button = document.createElement('button');
@@ -134,14 +118,9 @@
 
             }
 
-
-
             InputButtonArray.forEach(i => {
                 createButton(i);
             });
-
-
-
 
             rootElement.appendChild(mainDiv1)
 
@@ -180,38 +159,56 @@
                 switch (obj.operator) {
                     case '+':
                         output.textContent = parseInt(obj.firstNumber) + parseInt(obj.secondNumber);
-                        if (output.textContent >= 100) {
+                        if (output.textContent >= obj.targetValue) {
                             output.style.color = "red"
+                        }
+                        else{
+                            output.style.color = "black"
                         }
                         break;
                     case '-':
                         output.textContent = parseInt(obj.firstNumber) - parseInt(obj.secondNumber)
-                        if (output.textContent >= 100) {
+                        if (output.textContent >= obj.targetValue) {
                             output.style.color = "red"
+                        }
+                        else{
+                            output.style.color = "black"
                         }
                         break;
                     case '*':
                         output.textContent = parseInt(obj.firstNumber) * parseInt(obj.secondNumber)
-                        if (output.textContent >= 100) {
+                        if (output.textContent >= obj.targetValue) {
                             output.style.color = "red"
+                        }else{
+                            output.style.color = "black"
                         }
                         break;
                     case '/':
                         output.textContent = parseInt(obj.firstNumber) / parseInt(obj.secondNumber)
-                        if (output.textContent >= 100) {
+                        if (output.textContent >= obj.targetValue) {
                             output.style.color = "red"
+                        }
+                        else{
+                            output.style.color = "black"
                         }
                         break;
                 }
-            })
 
+                obj.firstNumber = output.textContent;
+                obj.secondNumber = "0"
+                obj.operator = ""
+
+                console.log(obj.firstNumber)
+                console.log(obj.operator)
+                console.log(obj.secondNumber);
+            })
 
             let resetButton = document.createElement("button")
             resetButton.textContent = "Reset"
             resetButton.id = "reset"
             resetButton.addEventListener("click", function () {
-                obj.firstNumber = "";
-                obj.secondNumber = "";
+                obj.firstNumber = "0";
+                obj.secondNumber = "0";
                 obj.operator = "";
                 renderUI();
 
@@ -221,7 +218,6 @@
             })
 
             subDiv1.appendChild(resetButton)
-
 
             let resultLabel = document.createElement("label")
             resultLabel.textContent = "Your Output Is : "
@@ -245,7 +241,39 @@
 
         }
 
-        // add event listener to each button in the array
+        function updateObjValue(value) {
+            let output = document.getElementById("resultx")
+            if (value === '+' || value === '-' || value === '*' || value === '/') {
+                obj.operator = value; 
+                output.textContent = obj.firstNumber + obj.operator;
+            }
+            else if (obj.operator === '') {
+                if(obj.firstNumber === '0'){
+                    obj.firstNumber = obj.firstNumber.replace('0', value)
+                    output.textContent = obj.firstNumber;
+                }
+                else{
+                    obj.firstNumber += value;
+                    output.textContent = obj.firstNumber;
+
+                }      
+            }
+            else {
+                if(obj.secondNumber === '0'){
+                    obj.secondNumber = obj.secondNumber.replace('0', value)
+                    output.textContent = obj.firstNumber + obj.operator + obj.secondNumber;
+                    
+                }
+                else{
+                    obj.secondNumber += value;
+                    output.textContent = obj.firstNumber + obj.operator + obj.secondNumber;
+                }   
+            }       
+                console.log(obj.firstNumber)
+                console.log(obj.operator)
+                console.log(obj.secondNumber);
+
+        }
 
 
         renderUI()
