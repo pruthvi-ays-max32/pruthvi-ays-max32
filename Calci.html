@@ -15,13 +15,25 @@
             text-align: center;
         }
 
-        #backspace{
+        #backspace {
+            margin: 2px;
+            background-color: rgb(156, 226, 171);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+            width: 78px;
+            height: 96px;
+        }
+
+        #eq {
             margin: 2px;
             background-color: rgb(156, 226, 171);
             border: 1px solid rgba(0, 0, 0, 0.8);
             padding: 30px;
             font-size: 30px;
             text-align: center;
+            width: 78px;
         }
 
         #mainDiv1 {
@@ -29,7 +41,6 @@
             display: flexbox;
             background-color: rgb(227, 243, 80);
             padding: 20px;
-
         }
 
         .opButtons {
@@ -66,7 +77,6 @@
             background-color: rgb(171, 218, 133);
             justify-content: center;
             margin: auto;
-
         }
 
         #reset {
@@ -85,7 +95,6 @@
             border: solid;
             background-color: rgb(178, 164, 197);
             justify-content: center;
-
         }
     </style>
 </head>
@@ -97,6 +106,8 @@
 
     <script>
 
+// OBJECT OR DATABASE CREATED 
+
         obj = {
             firstNumber: "0",
             secondNumber: "0",
@@ -104,19 +115,22 @@
             targetValue: 1000
         }
 
+// RENDER UI FUNCTION WRITTEN 
+
         renderUI = () => {
             let rootElement = document.getElementById('root');
 
             rootElement.innerHTML = "";
 
-            /* Main Div 1 for creating Input Buttons 0-9*/
+// CREATED MAIN DIV 1 FOR CREATING THE INPUT BUTTONS 0-9*/
 
             let mainDiv1 = document.createElement("div")
             mainDiv1.id = "mainDiv1";
             let InputButtonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-            function createButton(number) {
+// CREATED A FUNCTION TO CREATE THE NUMBER BUTTONS AND ADDED THE EVENT LISTENR TO ALL BUTTONS
 
+            function createButton(number) {
                 let button = document.createElement('button');
                 button.className = "ipButtons"
                 button.textContent = number;
@@ -127,57 +141,79 @@
 
             }
 
+// CALLING THE FUNCTION OF CREATING NUMBER BUTTONS USING FOR EACH LOOP
+
             InputButtonArray.forEach(i => {
                 createButton(i);
             });
 
+// CREATED THE EQUAL TO BUTTON AND ADDED EVENT LISTENER TO IT
+
+            let equalTo = document.createElement("button")
+            equalTo.textContent = "="
+            equalTo.id = "eq"
+            mainDiv1.appendChild(equalTo)
+
+
+            equalTo.addEventListener("click", function () {
+                let output = document.getElementById("resultx")
+
+                switch (obj.operator) {
+                    case '+':
+                        output.textContent = parseInt(obj.firstNumber) + parseInt(obj.secondNumber);
+                        break;
+                    case '-':
+                        output.textContent = parseInt(obj.firstNumber) - parseInt(obj.secondNumber)
+                        break;
+                    case '*':
+                        output.textContent = parseInt(obj.firstNumber) * parseInt(obj.secondNumber)
+                        break;
+                    case '/':
+                        output.textContent = parseInt(obj.firstNumber) / parseInt(obj.secondNumber)
+                        break;
+                }
+
+                obj.firstNumber = output.textContent;
+                obj.secondNumber = "0"
+                obj.operator = ""
+
+            })
+
+// CREATED THE BACKSPACE BUTTON & ADDED THE EVENT LISTNER TO IT
+
             let backspace = document.createElement("button")
-            backspace.textContent = "<-"
+            backspace.textContent = "⌫"
             backspace.id = "backspace"
             mainDiv1.appendChild(backspace)
 
             rootElement.appendChild(mainDiv1)
 
-
-
-            backspace.addEventListener("click", function(){
+            backspace.addEventListener("click", function () {
 
                 let output = document.getElementById("resultx")
-                
-                
-                if(obj.secondNumber !== "0" && obj.secondNumber !== ""){
+
+                if (obj.secondNumber !== "0" && obj.secondNumber !== "") {
                     obj.secondNumber = obj.secondNumber.substring(0, obj.secondNumber.length - 1)
                     output.textContent = obj.firstNumber + obj.operator + obj.secondNumber
-                    
+
                 }
-                else if((obj.secondNumber === "" || obj.secondNumber === "0")&& obj.operator !== ""){
-                    obj.operator = ""   
+                else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator !== "") {
+                    obj.operator = ""
                     output.textContent = obj.firstNumber + obj.operator
                 }
-                else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator === "" && obj.firstNumber !== "" ){
+                else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator === "" && obj.firstNumber !== "") {
                     obj.firstNumber = obj.firstNumber.substring(0, obj.firstNumber.length - 1)
                     output.textContent = obj.firstNumber
                 }
-                else{
+                else {
                     obj.firstNumber = "0"
                     obj.secondNumber = "0"
                     obj.operator = ""
                 }
-                console.log("After Backspace")
-                console.log(obj.firstNumber)
-                console.log(obj.operator)
-                console.log(obj.secondNumber)
             })
 
+ //  CREATED MAIN DIV 2 FOR CREATING OPERATION BUTTIONS 
 
-
-
-
-
-
-
-
-            /* Main Div 2 for creating Operation Buttons for "+,-,*,/"     */
             let mainDiv2 = document.createElement("div")
             mainDiv2.id = "mainDiv2"
             let OperationArray = ["+", "-", "*", "/"];
@@ -191,11 +227,15 @@
                 })
             }
 
+// CALLING THE CREATE BUTTON FUNCTION FOR OPERATORS
+
             OperationArray.forEach(j => {
                 createOpButton(j);
             });
 
             rootElement.appendChild(mainDiv2)
+
+// CREATED MAIN DIV 3 FOR RESULT , SUMBTI AND RESET BUTTON ...
 
             let mainDiv3 = document.createElement("div")
             mainDiv3.id = "mainDiv3"
@@ -203,58 +243,24 @@
             let subDiv1 = document.createElement("div")
             subDiv1.id = "subDiv"
 
+// CREATING SUBMIT BUTTON AND ADDING EVENT LISTENER TO IT
+
             let submitButton = document.createElement("button")
             submitButton.textContent = "Submit"
             submitButton.id = "submit"
             submitButton.addEventListener("click", function () {
                 let output = document.getElementById("resultx")
 
-                switch (obj.operator) {
-                    case '+':
-                        output.textContent = parseInt(obj.firstNumber) + parseInt(obj.secondNumber);
-                        if (output.textContent >= obj.targetValue) {
-                            output.style.color = "red"
-                        }
-                        else{
-                            output.style.color = "black"
-                        }
-                        break;
-                    case '-':
-                        output.textContent = parseInt(obj.firstNumber) - parseInt(obj.secondNumber)
-                        if (output.textContent >= obj.targetValue) {
-                            output.style.color = "red"
-                        }
-                        else{
-                            output.style.color = "black"
-                        }
-                        break;
-                    case '*':
-                        output.textContent = parseInt(obj.firstNumber) * parseInt(obj.secondNumber)
-                        if (output.textContent >= obj.targetValue) {
-                            output.style.color = "red"
-                        }else{
-                            output.style.color = "black"
-                        }
-                        break;
-                    case '/':
-                        output.textContent = parseInt(obj.firstNumber) / parseInt(obj.secondNumber)
-                        if (output.textContent >= obj.targetValue) {
-                            output.style.color = "red"
-                        }
-                        else{
-                            output.style.color = "black"
-                        }
-                        break;
+                if (output.textContent >= obj.targetValue) {
+                    output.style.color = "red"
+                }
+                else {
+                    output.style.color = "black"
                 }
 
-                obj.firstNumber = output.textContent;
-                obj.secondNumber = "0"
-                obj.operator = ""
-
-                console.log(obj.firstNumber)
-                console.log(obj.operator)
-                console.log(obj.secondNumber);
             })
+
+// RESET BUTTON AND ADDED EVENT LISTENER TO IT 
 
             let resetButton = document.createElement("button")
             resetButton.textContent = "Reset"
@@ -265,12 +271,11 @@
                 obj.operator = "";
                 renderUI();
 
-                console.log(obj.firstNumber)
-                console.log(obj.operator)
-                console.log(obj.secondNumber);
             })
 
             subDiv1.appendChild(resetButton)
+
+// FOR OUTPUT CREATING LABEL 
 
             let resultLabel = document.createElement("label")
             resultLabel.textContent = "Your Output Is : "
@@ -280,6 +285,8 @@
 
             mainDiv3.appendChild(resultLabel)
             mainDiv3.appendChild(result)
+
+// FOR CREATING DIV AND FETCHING THE VALUE OF TARGET VALUE FROM THE OBJECT
 
             let targetValueDiv = document.createElement("div")
             let tValue = document.createElement("label")
@@ -291,42 +298,68 @@
             subDiv1.appendChild(submitButton)
             mainDiv3.appendChild(subDiv1)
             rootElement.appendChild(mainDiv3)
-
         }
 
-        function updateObjValue(value) {
+
+
+// TO DISPLAY THE RUNNING INPUT AND OUTPUT OF CODE
+
+
+
+        function display() {
             let output = document.getElementById("resultx")
-            if (value === '+' || value === '-' || value === '*' || value === '/') {
-                obj.operator = value; 
-                output.textContent = obj.firstNumber + obj.operator;
+
+            if (obj.operator === '+' || obj.operator === '-' || obj.operator === '*' || obj.operator === '/') {
+
+                if(obj.secondNumber === "0"){
+                    output.textContent = obj.firstNumber + obj.operator;
+                    output.color = "black"
+                }
+                else{
+                    output.textContent = obj.firstNumber + obj.operator + obj.secondNumber;
+                    output.color = "black"
+                }
             }
             else if (obj.operator === '') {
-                if(obj.firstNumber === '0'){
-                    obj.firstNumber = obj.firstNumber.replace('0', value)
+                if (obj.firstNumber === '0') {
                     output.textContent = obj.firstNumber;
+                    output.style.color = "black"
                 }
-                else{
-                    obj.firstNumber += value;
+                else {
                     output.textContent = obj.firstNumber;
+                    output.color = "black"
+                }
+            }
+        }
 
-                }      
+//  FOR UPDATING THE VALUE PRESENT IN OBJECT & CALL DISPLAY FUNCTION .....
+
+        function updateObjValue(value) {
+            
+            if (value === '+' || value === '-' || value === '*' || value === '/') {
+                obj.operator = value;
+            }
+            else if (obj.operator === '') {
+                if (obj.firstNumber === '0') {
+                    obj.firstNumber = obj.firstNumber.replace('0', value)
+                }
+                else {
+                    obj.firstNumber += value;
+                }
             }
             else {
-                if(obj.secondNumber === '0'){
-                    obj.secondNumber = obj.secondNumber.replace('0', value)
-                    output.textContent = obj.firstNumber + obj.operator + obj.secondNumber;
-                    
+                if (obj.secondNumber === '0') {
+                    obj.secondNumber = obj.secondNumber.replace('0', value);
                 }
-                else{
+                else {
                     obj.secondNumber += value;
-                    output.textContent = obj.firstNumber + obj.operator + obj.secondNumber;
-                }   
-            }       
-                console.log(obj.firstNumber)
-                console.log(obj.operator)
-                console.log(obj.secondNumber);
-
+                }
+            }
+            display()
         }
+
+// CALL RENDER UI FUNCTION .....
+
         renderUI()
     </script>
 </body>
