@@ -10,7 +10,6 @@
             width: 50px;
             height: 50px;
             gap: 10px;
-
         }
 
         .button {
@@ -27,7 +26,6 @@
             justify-content: center;
             gap: 10px;
             margin-left: 5px;
-
         }
 
         #root {
@@ -49,25 +47,37 @@
 </head>
 
 <body>
+    <!-- CREATED THE ROOT DIV WITH ID ROOT -->
     <div id="root">
 
 
     </div>
 
-
     <script>
+        // CREATED THE OBJECT TO STORE OUR DATA
+
         let data = {
             text: "",
             color: "",
         }
 
+        // RENDER UI FUNCTION DEFINE 
+
         function renderUI() {
+
+            // ACCESSED THE ROOT ELEMENT BY ITS ID 
             const rootElement = document.getElementById("root");
+            // CLEARING THE ROOT ELEMENT USING THE INNERHTML METHOD / FUNCTION
             rootElement.innerHTML = '';
+
+            // CREATED DIV FOR CREATING BUTTONS FOR EACH COLOR
 
             let div1 = document.createElement("div")
             div1.className = "button"
             let colorArray = ["red", "yellow", "green"]
+
+            // CREATED THE FUNCTION TO CREATE THE BUTTONS
+
             function createButton(color) {
                 let button = document.createElement('button');
                 button.className = "boxcolor"
@@ -75,21 +85,31 @@
                 button.style.margin = "5px",
                     div1.appendChild(button)
             }
+            // CALLING THE FUNCTION FOR EACH COLOR TO CREATE THE BUTION
+
             colorArray.forEach(color => {
                 createButton(color);
             });
 
+            // APPENDED THE DIV TO THE ROOT DIV AS A CHILD
+
             rootElement.appendChild(div1)
 
-            // color update in object
-            div1.addEventListener("click", function (event) {
-                if (event.target.tagName === "BUTTON") {
-                    // console.log(event.target)
-                    // console.log(event.target.tagName)
-                    let color = event.target.style.backgroundColor;
-                    updateColorObj(color);
+            // ADDED THE EVENT LISTENER TO THE DIV 1 WITH OBJECT OF EVENT
 
+            // EVENT OBJECT MEANS IT STORES THE BASIC INFORMATION OF HAPPENED EVENT MEANS WHICH EVENT HAPPEND, WHERE AND WHAT ACTION GETS PERFORMED etc...
+
+            div1.addEventListener("click", function (event) {
+                // IT CHECKS THAT ON WHICH TAG EVENT IS HAPPEND IS EQUAL TO THE BUTTON TAG OR NOT
+
+                if (event.target.tagName === "BUTTON") {
+                    // IT ASSIGNS THE BACKGROUND COLOR OF THAT PART TO THE COLOR VARIABLE
+                    let color = event.target.style.backgroundColor;
+                    // IT CALLS THE UPDATECOLOROBJ FUNCTION WITH ARGUMENT COLOR
+                    updateColorObj(color);
+                    // CREATED A VARIABLE WHICH SELECT THE ALL THE ELEMENTS ON BASIS OF THE QUERY
                     const colorButton = document.querySelectorAll(".boxcolor")
+                    // FOR EACH BUTTON IT CHECKS CONDITION AND PERFORMS THE TOLD ACTION ON IT.
                     for (let i = 0; i < colorButton.length; i++) {
                         if (colorButton[i] === event.target) {
                             colorButton[i].style.border = "5px solid black";
@@ -99,6 +119,7 @@
                     }
                 }
             })
+            // CREATED THE MAIN DIV 2 FOR TAKING INPUT TEXT FROM THE USER
 
             let mainDiv2 = document.createElement("div");
             mainDiv2.id = 'div2'
@@ -111,16 +132,16 @@
             let enter_text = document.createElement("div");
             let input1 = document.createElement("input");
 
-            // Updating the value
+            // UPDATING THE VALUE WHEN USER GIVING THE TEXT IN INPUT FIELD.
             input1.addEventListener("input", function () {
                 updateObject(input1.value)
             })
             input1.type = "text"
             enter_text.appendChild(input1)
             mainDiv2.appendChild(enter_text)
-
+            // MAINDIV2 APPENDED TO THE ROOT DIV
             rootElement.appendChild(mainDiv2)
-
+            // CREATED THE MAIN DIV 3 FOR SUBMIT AND RESET BUTTON
             let mainDiv3 = document.createElement("div")
             mainDiv3.id = "div3"
             let submitButton = document.createElement("button");
@@ -132,42 +153,44 @@
             resetButton.type = "button";
             resetButton.textContent = "Reset"
             mainDiv3.appendChild(resetButton)
-
+            // BOTH GETS APPENDED TO MAINDIV3 AND THEN MAINDIV3 APPENDED TO THE ROOT DIV
             rootElement.appendChild(mainDiv3)
-
+            // CREATED THE RESULT DIV FOR DISPLAY THE RESULT
             let result = document.createElement("div")
             let resultLabel = document.createElement("label")
             result.textContent = "Entered Text Is : ";
             resultLabel.id = "resultx"
             result.appendChild(resultLabel)
             root.appendChild(result)
-
-
-
-
+            // SUBMIT BUTTON TO DISPLAY THE RESULT
             submitButton.addEventListener("click", function () {
-                const outputx = document.querySelector("#resultx")
-                outputx.textContent = data.text;
-                outputx.style.color = data.color;
+                display();
             })
-
+            // RESET BUTTON TO CLEAR THE OBJECT AND RENDER THE UI
             resetButton.addEventListener("click", function () {
                 data.color = ""
                 data.text = ""
                 renderUI();
             })
+
+            // FUNCTION TO UPDATE THE TEXT IN OBJECT
+            function updateObject(text) {
+                data.text = text;
+            }
+            // FUNCTION TO UPDATE THE COLOR IN OBJECT
+            function updateColorObj(color) {
+                data.color = color;
+            }
+            // FUNCTION TO DISPLAY THE RESULT
+            function display() {
+                const outputx = document.querySelector("#resultx")
+                outputx.textContent = data.text;
+                outputx.style.color = data.color;
+            }
         }
 
-        function updateObject(text) {
-            data.text = text;
-
-        }
-        function updateColorObj(color) {
-            data.color = color;
-        }
-
+        // CALLING THE RENDER UI FUNCTION
         renderUI()
-
 
     </script>
 </body>

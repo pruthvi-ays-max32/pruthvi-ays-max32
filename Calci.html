@@ -107,7 +107,6 @@
     <script>
 
 // OBJECT OR DATABASE CREATED 
-
         obj = {
             firstNumber: "0",
             secondNumber: "0",
@@ -153,7 +152,7 @@
             equalTo.id = "eq"
             mainDiv1.appendChild(equalTo)
 
-
+// PERFORMED THE EQUAL TO OPERATION  AND UPDATED THE OBJECT WITH NEW VALUES AS FIRST NUMBER UPDATED WITH PREVIOUS RESULT AND SECOND NUMBER IS UPDATE WITH "0" AND OPERATOR BECOMES EMPTY
             equalTo.addEventListener("click", function () {
                 let output = document.getElementById("resultx")
 
@@ -196,23 +195,19 @@
 
                 if (obj.secondNumber !== "0" && obj.secondNumber !== "") {
                     obj.secondNumber = obj.secondNumber.substring(0, obj.secondNumber.length - 1)
-                    output.textContent = obj.firstNumber + obj.operator + obj.secondNumber
-
                 }
                 else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator !== "") {
-                    obj.operator = ""
-                    output.textContent = obj.firstNumber + obj.operator
+                    obj.operator = ""    
                 }
                 else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator === "" && obj.firstNumber !== "") {
                     obj.firstNumber = obj.firstNumber.substring(0, obj.firstNumber.length - 1)
-                    output.textContent = obj.firstNumber
                 }
                 else {
                     obj.firstNumber = "0"
                     obj.secondNumber = "0"
                     obj.operator = ""
                 }
-                color();
+                display()
             })
 
  //  CREATED MAIN DIV 2 FOR CREATING OPERATION BUTTIONS 
@@ -295,10 +290,7 @@
             rootElement.appendChild(mainDiv3)
         }
 
-
-
 // TO DISPLAY THE RUNNING INPUT AND OUTPUT OF CODE
-
         function color(){
             let output = document.getElementById("resultx")
                 if(output.textContent >= obj.targetValue){
