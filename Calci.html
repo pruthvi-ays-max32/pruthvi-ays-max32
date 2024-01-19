@@ -138,7 +138,6 @@
                 button.addEventListener("click", function () {
                     updateObjValue(number);
                 })
-
             }
 
 // CALLING THE FUNCTION OF CREATING NUMBER BUTTONS USING FOR EACH LOOP
@@ -161,18 +160,21 @@
                 switch (obj.operator) {
                     case '+':
                         output.textContent = parseInt(obj.firstNumber) + parseInt(obj.secondNumber);
+                        output.style.color = "black"
                         break;
                     case '-':
                         output.textContent = parseInt(obj.firstNumber) - parseInt(obj.secondNumber)
+                        output.style.color = "black"
                         break;
                     case '*':
                         output.textContent = parseInt(obj.firstNumber) * parseInt(obj.secondNumber)
+                        output.style.color = "black"
                         break;
                     case '/':
                         output.textContent = parseInt(obj.firstNumber) / parseInt(obj.secondNumber)
+                        output.style.color = "black"
                         break;
                 }
-
                 obj.firstNumber = output.textContent;
                 obj.secondNumber = "0"
                 obj.operator = ""
@@ -210,6 +212,7 @@
                     obj.secondNumber = "0"
                     obj.operator = ""
                 }
+                color();
             })
 
  //  CREATED MAIN DIV 2 FOR CREATING OPERATION BUTTIONS 
@@ -250,14 +253,7 @@
             submitButton.id = "submit"
             submitButton.addEventListener("click", function () {
                 let output = document.getElementById("resultx")
-
-                if (output.textContent >= obj.targetValue) {
-                    output.style.color = "red"
-                }
-                else {
-                    output.style.color = "black"
-                }
-
+                color();
             })
 
 // RESET BUTTON AND ADDED EVENT LISTENER TO IT 
@@ -270,7 +266,6 @@
                 obj.secondNumber = "0";
                 obj.operator = "";
                 renderUI();
-
             })
 
             subDiv1.appendChild(resetButton)
@@ -304,7 +299,15 @@
 
 // TO DISPLAY THE RUNNING INPUT AND OUTPUT OF CODE
 
-
+        function color(){
+            let output = document.getElementById("resultx")
+                if(output.textContent >= obj.targetValue){
+                    output.style.color = "red"
+                }
+                else{
+                    output.style.color = "black"
+                }
+        }
 
         function display() {
             let output = document.getElementById("resultx")
@@ -312,24 +315,16 @@
             if (obj.operator === '+' || obj.operator === '-' || obj.operator === '*' || obj.operator === '/') {
 
                 if(obj.secondNumber === "0"){
-                    output.textContent = obj.firstNumber + obj.operator;
-                    output.color = "black"
+                    output.textContent = obj.firstNumber + obj.operator;       
                 }
                 else{
                     output.textContent = obj.firstNumber + obj.operator + obj.secondNumber;
-                    output.color = "black"
                 }
             }
             else if (obj.operator === '') {
-                if (obj.firstNumber === '0') {
                     output.textContent = obj.firstNumber;
-                    output.style.color = "black"
-                }
-                else {
-                    output.textContent = obj.firstNumber;
-                    output.color = "black"
-                }
             }
+            color();
         }
 
 //  FOR UPDATING THE VALUE PRESENT IN OBJECT & CALL DISPLAY FUNCTION .....
