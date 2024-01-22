@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainDiv1 {
+            background-color: aqua;
+            border: 3px solid black;
+            height: calc(7vh - 6px);
+            text-align: left;
+            display: flex;
+        }
+        #title {
+            text-align: left;
+            width: calc(100vw);
+        }
+
+        #cDetails {
+            justify-content: center;
+            border: 3px solid black;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root">
+
+    </div>
+
+
+    <script>
+
+        let employees = {}
+        let id = 1;
+
+
+        function renderUI() {
+            let rootElement = document.getElementById("root")
+
+            rootElement.innerHTML = " "
+
+/*                                             ********************************                                         */
+            let mainDiv1 = document.createElement("div")
+            mainDiv1.id = "mainDiv1"
+
+            let title = document.createElement("div")
+            title.id = "title"
+            title.textContent = "AYS SOFTWARE SOLUTION : THE THOUGHTFUL MINDS"
+
+            let ComDetails = document.createElement('button')
+            ComDetails.id = "cDetails"
+            ComDetails.textContent = "(=)"
+
+            ComDetails.addEventListener("click", function(){
+                CompDetails();
+            })
+
+
+            mainDiv1.appendChild(title)
+            mainDiv1.appendChild(ComDetails)
+
+            rootElement.appendChild(mainDiv1)
+
+/*                           *************Main Div2************************                                  */
+
+            let mainDiv2 = document.createElement("div")
+            mainDiv2.id = "mainDiv2"
+
+            let addEmployee = document.createElement("button")
+            addEmployee.id = "addEmployee"
+            addEmployee.textContent = "ADD Employee"
+
+            addEmployee.addEventListener("click", createForm)
+
+            mainDiv2.appendChild(addEmployee)
+
+
+
+/*                     *************Main Div3***************                             */
+            let mainDiv3 = document.createElement("div")
+            mainDiv3.id = "mainDiv3"
+
+            rootElement.appendChild(mainDiv2)
+            rootElement.appendChild(mainDiv3)
+
+        }
+
+        function CompDetails(){
+            let cdetails = document.createElement("div")
+            cdetails.textContent = "In an object Add Company Details and display it in div3"
+        }
+
+
+
+        function createForm(){
+            let form = document.createElement("div")
+            form.id = "form"
+            let nameLabel = document.createElement("label")
+            nameLabel.textContent = "Employee Name"
+
+            let input1 = document.createElement("input");
+            input1.type = "text";
+            input1.id = "myInput";
+            input1.placeholder = "Enter only characters and spaces";
+
+
+            let salaryLabel = document.createElement("label")
+            salaryLabel.textContent = "Employee's Salary"
+
+            let input2 = document.createElement("input");
+            input2.type = "text";
+            input2.id = "myInput";
+
+
+            let DLabel = document.createElement("label")
+            DLabel.textContent = "Employee's Designation"
+
+            let input3 = document.createElement("input");
+            input3.type = "text";
+            input3.id = "myInput";
+            input3.placeholder = "Enter Employee's Designation";
+
+            let DeptID = document.createElement("label")
+            DeptID.textContent = "Employee's Department ID"
+
+            let input4 = document.createElement("input");
+            input3.type = "text";
+            input3.id = "myInput";
+            
+
+            let submitButton = document.createElement("button")
+            submitButton.textContent = "Submit"
+            submitButton.id = "submit"
+
+            submitButton.addEventListener("click", function(){
+                addData(input1.value, input2.value, input3.value, input4.value)
+                console.log(employees)
+            })
+
+            form.appendChild(nameLabel)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input1)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(salaryLabel)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input2)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(DLabel)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input3)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(DeptID)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input4)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(submitButton)
+
+            mainDiv3.appendChild(form)
+            
+
+        }
+
+
+/*                                    ************* TO ADD Employee ****************   */
+        addData = (name, salary, Designation, DeptID) =>{
+            let Eid = id;
+            let tempobj = {
+                Eid : Eid,
+                name : name,
+                salary : salary,
+                Designation : Designation,
+                DeptID : DeptID,
+            }
+
+            if(employees[Eid] === undefined){
+                employees[Eid] = tempobj;
+                id++;
+            } 
+        }
+        renderUI()
+    </script>
+</body>
+
+</html>
