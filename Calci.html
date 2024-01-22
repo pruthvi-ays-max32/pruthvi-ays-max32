@@ -106,28 +106,28 @@
 
     <script>
 
-// OBJECT OR DATABASE CREATED 
-        obj = {
+        // OBJECT OR DATABASE CREATED 
+        let obj = {
             firstNumber: "0",
             secondNumber: "0",
             operator: "",
             targetValue: 1000
         }
 
-// RENDER UI FUNCTION WRITTEN 
+        // RENDER UI FUNCTION WRITTEN 
 
         renderUI = () => {
             let rootElement = document.getElementById('root');
 
             rootElement.innerHTML = "";
 
-// CREATED MAIN DIV 1 FOR CREATING THE INPUT BUTTONS 0-9*/
+            // CREATED MAIN DIV 1 FOR CREATING THE INPUT BUTTONS 0-9*/
 
             let mainDiv1 = document.createElement("div")
             mainDiv1.id = "mainDiv1";
             let InputButtonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-// CREATED A FUNCTION TO CREATE THE NUMBER BUTTONS AND ADDED THE EVENT LISTENR TO ALL BUTTONS
+            // CREATED A FUNCTION TO CREATE THE NUMBER BUTTONS AND ADDED THE EVENT LISTENR TO ALL BUTTONS
 
             function createButton(number) {
                 let button = document.createElement('button');
@@ -139,82 +139,33 @@
                 })
             }
 
-// CALLING THE FUNCTION OF CREATING NUMBER BUTTONS USING FOR EACH LOOP
+            // CALLING THE FUNCTION OF CREATING NUMBER BUTTONS USING FOR EACH LOOP
 
             InputButtonArray.forEach(i => {
                 createButton(i);
             });
 
-// CREATED THE EQUAL TO BUTTON AND ADDED EVENT LISTENER TO IT
+            // CREATED THE EQUAL TO BUTTON AND ADDED EVENT LISTENER TO IT
 
             let equalTo = document.createElement("button")
             equalTo.textContent = "="
             equalTo.id = "eq"
             mainDiv1.appendChild(equalTo)
 
-// PERFORMED THE EQUAL TO OPERATION  AND UPDATED THE OBJECT WITH NEW VALUES AS FIRST NUMBER UPDATED WITH PREVIOUS RESULT AND SECOND NUMBER IS UPDATE WITH "0" AND OPERATOR BECOMES EMPTY
-            equalTo.addEventListener("click", function () {
-                let output = document.getElementById("resultx")
-
-                switch (obj.operator) {
-                    case '+':
-                        output.textContent = parseInt(obj.firstNumber) + parseInt(obj.secondNumber);
-                        output.style.color = "black"
-                        break;
-                    case '-':
-                        output.textContent = parseInt(obj.firstNumber) - parseInt(obj.secondNumber)
-                        output.style.color = "black"
-                        break;
-                    case '*':
-                        output.textContent = parseInt(obj.firstNumber) * parseInt(obj.secondNumber)
-                        output.style.color = "black"
-                        break;
-                    case '/':
-                        output.textContent = parseInt(obj.firstNumber) / parseInt(obj.secondNumber)
-                        output.style.color = "black"
-                        break;
-                }
-                obj.firstNumber = output.textContent;
-                obj.secondNumber = "0"
-                obj.operator = ""
-
-            })
-
-// CREATED THE BACKSPACE BUTTON & ADDED THE EVENT LISTNER TO IT
+            // CREATED THE BACKSPACE BUTTON & ADDED THE EVENT LISTNER TO IT
 
             let backspace = document.createElement("button")
             backspace.textContent = "⌫"
             backspace.id = "backspace"
             mainDiv1.appendChild(backspace)
 
-            rootElement.appendChild(mainDiv1)
 
-            backspace.addEventListener("click", function () {
-
-                let output = document.getElementById("resultx")
-
-                if (obj.secondNumber !== "0" && obj.secondNumber !== "") {
-                    obj.secondNumber = obj.secondNumber.substring(0, obj.secondNumber.length - 1)
-                }
-                else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator !== "") {
-                    obj.operator = ""    
-                }
-                else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator === "" && obj.firstNumber !== "") {
-                    obj.firstNumber = obj.firstNumber.substring(0, obj.firstNumber.length - 1)
-                }
-                else {
-                    obj.firstNumber = "0"
-                    obj.secondNumber = "0"
-                    obj.operator = ""
-                }
-                display()
-            })
-
- //  CREATED MAIN DIV 2 FOR CREATING OPERATION BUTTIONS 
+            //  CREATED MAIN DIV 2 FOR CREATING OPERATION BUTTIONS 
 
             let mainDiv2 = document.createElement("div")
             mainDiv2.id = "mainDiv2"
             let OperationArray = ["+", "-", "*", "/"];
+
             function createOpButton(x) {
                 let button = document.createElement('button');
                 button.className = "opButtons"
@@ -225,15 +176,13 @@
                 })
             }
 
-// CALLING THE CREATE BUTTON FUNCTION FOR OPERATORS
+            // CALLING THE CREATE BUTTON FUNCTION FOR OPERATORS
 
             OperationArray.forEach(j => {
                 createOpButton(j);
             });
 
-            rootElement.appendChild(mainDiv2)
-
-// CREATED MAIN DIV 3 FOR RESULT , SUMBTI AND RESET BUTTON ...
+            // CREATED MAIN DIV 3 FOR RESULT , SUMBTI AND RESET BUTTON ...
 
             let mainDiv3 = document.createElement("div")
             mainDiv3.id = "mainDiv3"
@@ -241,88 +190,89 @@
             let subDiv1 = document.createElement("div")
             subDiv1.id = "subDiv"
 
-// CREATING SUBMIT BUTTON AND ADDING EVENT LISTENER TO IT
-
             let submitButton = document.createElement("button")
             submitButton.textContent = "Submit"
             submitButton.id = "submit"
-            submitButton.addEventListener("click", function () {
-                let output = document.getElementById("resultx")
-                color();
-            })
-
-// RESET BUTTON AND ADDED EVENT LISTENER TO IT 
 
             let resetButton = document.createElement("button")
             resetButton.textContent = "Reset"
             resetButton.id = "reset"
-            resetButton.addEventListener("click", function () {
-                obj.firstNumber = "0";
-                obj.secondNumber = "0";
-                obj.operator = "";
-                renderUI();
-            })
 
-            subDiv1.appendChild(resetButton)
-
-// FOR OUTPUT CREATING LABEL 
+            // FOR OUTPUT CREATING LABEL 
 
             let resultLabel = document.createElement("label")
             resultLabel.textContent = "Your Output Is : "
 
             let result = document.createElement("div")
-            result.id = "resultx"
+            result.id = "resultx"      
 
-            mainDiv3.appendChild(resultLabel)
-            mainDiv3.appendChild(result)
-
-// FOR CREATING DIV AND FETCHING THE VALUE OF TARGET VALUE FROM THE OBJECT
+            // FOR CREATING DIV AND FETCHING THE VALUE OF TARGET VALUE FROM THE OBJECT
 
             let targetValueDiv = document.createElement("div")
             let tValue = document.createElement("label")
             tValue.textContent = "Our Target Value Is " + obj.targetValue
-
+            mainDiv3.appendChild(resultLabel)
+            mainDiv3.appendChild(result)
             targetValueDiv.appendChild(tValue)
-            mainDiv3.appendChild(targetValueDiv)
-
+            subDiv1.appendChild(resetButton)
             subDiv1.appendChild(submitButton)
             mainDiv3.appendChild(subDiv1)
+            mainDiv3.appendChild(targetValueDiv)
+
+            // ALL MAIN DIVS APPENDED TO THE ROOTELEMENT
+
+            rootElement.appendChild(mainDiv1)
+            rootElement.appendChild(mainDiv2)
             rootElement.appendChild(mainDiv3)
+
+
+            // Event LISTENER TO ALL THE BUTTONS
+            submitButton.addEventListener("click", color)
+            resetButton.addEventListener("click", reset)
+            backspace.addEventListener("click", PerformBackSpace)
+            equalTo.addEventListener("click", PerformOperation)
         }
 
-// TO DISPLAY THE RUNNING INPUT AND OUTPUT OF CODE
-        function color(){
+/* ****************************************     END OF RENDER UI FUNCTION        ******************************     */
+
+
+// FUNCTIONS FOR EACH TASK
+
+        // FUNCTION TO DISPLAY THE RUNNING IN PERTICULAR COLOR
+        function color() {
             let output = document.getElementById("resultx")
-                if(output.textContent >= obj.targetValue){
-                    output.style.color = "red"
-                }
-                else{
-                    output.style.color = "black"
-                }
+            if (output.textContent >= obj.targetValue) {
+                output.style.color = "red"
+            }
+            else {
+                output.style.color = "black"
+            }
         }
+
+        // FUNCTION TO DISPLAY THE RUNNING INPUT AND OUTPUT OF CODE
 
         function display() {
             let output = document.getElementById("resultx")
 
             if (obj.operator === '+' || obj.operator === '-' || obj.operator === '*' || obj.operator === '/') {
 
-                if(obj.secondNumber === "0"){
-                    output.textContent = obj.firstNumber + obj.operator;       
+                if (obj.secondNumber === "0") {
+                    output.textContent = obj.firstNumber + obj.operator;
                 }
-                else{
+                else {
                     output.textContent = obj.firstNumber + obj.operator + obj.secondNumber;
                 }
             }
             else if (obj.operator === '') {
-                    output.textContent = obj.firstNumber;
+                output.textContent = obj.firstNumber;
             }
             color();
         }
 
-//  FOR UPDATING THE VALUE PRESENT IN OBJECT & CALL DISPLAY FUNCTION .....
+        //  FUNCTION TO UPDATE THE VALUE PRESENT IN OBJECT .....
 
         function updateObjValue(value) {
-            
+
             if (value === '+' || value === '-' || value === '*' || value === '/') {
                 obj.operator = value;
             }
@@ -345,7 +295,66 @@
             display()
         }
 
-// CALL RENDER UI FUNCTION .....
+
+        // To Perform the Operation By using Object
+
+        function PerformOperation() {
+            let output = document.getElementById("resultx")
+
+            switch (obj.operator) {
+                case '+':
+                    output.textContent = parseInt(obj.firstNumber) + parseInt(obj.secondNumber);
+                    output.style.color = "black"
+                    break;
+                case '-':
+                    output.textContent = parseInt(obj.firstNumber) - parseInt(obj.secondNumber)
+                    output.style.color = "black"
+                    break;
+                case '*':
+                    output.textContent = parseInt(obj.firstNumber) * parseInt(obj.secondNumber)
+                    output.style.color = "black"
+                    break;
+                case '/':
+                    output.textContent = parseInt(obj.firstNumber) / parseInt(obj.secondNumber)
+                    output.style.color = "black"
+                    break;
+            }
+            obj.firstNumber = output.textContent;
+            obj.secondNumber = "0"
+            obj.operator = ""
+        }
+
+
+        // TO PERFORM BACKSPACE OPERAITON
+        function PerformBackSpace() {
+            let output = document.getElementById("resultx")
+
+            if (obj.secondNumber !== "0" && obj.secondNumber !== "") {
+                obj.secondNumber = obj.secondNumber.substring(0, obj.secondNumber.length - 1)
+            }
+            else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator !== "") {
+                obj.operator = ""
+            }
+            else if ((obj.secondNumber === "" || obj.secondNumber === "0") && obj.operator === "" && obj.firstNumber !== "") {
+                obj.firstNumber = obj.firstNumber.substring(0, obj.firstNumber.length - 1)
+            }
+            else {
+                obj.firstNumber = "0"
+                obj.secondNumber = "0"
+                obj.operator = ""
+            }
+            display()
+        }
+
+
+        // TO RESET THE VALUES IN OBJECT ....
+        let reset = () => {
+            obj.firstNumber = "0";
+            obj.secondNumber = "0";
+            obj.operator = "";
+            renderUI();
+        }
+        // CALL RENDER UI FUNCTION .....
 
         renderUI()
     </script>
