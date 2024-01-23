@@ -211,11 +211,14 @@
             let targetValueDiv = document.createElement("div")
             let tValue = document.createElement("label")
             tValue.textContent = "Our Target Value Is " + obj.targetValue
-            mainDiv3.appendChild(resultLabel)
-            mainDiv3.appendChild(result)
+
+
+            // Append to the Main Div 3
             targetValueDiv.appendChild(tValue)
             subDiv1.appendChild(resetButton)
             subDiv1.appendChild(submitButton)
+            mainDiv3.appendChild(resultLabel)
+            mainDiv3.appendChild(result)
             mainDiv3.appendChild(subDiv1)
             mainDiv3.appendChild(targetValueDiv)
 
@@ -296,7 +299,7 @@
         }
 
 
-        // To Perform the Operation By using Object
+        // FUNCTION To Perform the Operation By using Object
 
         function PerformOperation() {
             let output = document.getElementById("resultx")
@@ -322,10 +325,12 @@
             obj.firstNumber = output.textContent;
             obj.secondNumber = "0"
             obj.operator = ""
+
+            return output.textContent
         }
 
 
-        // TO PERFORM BACKSPACE OPERAITON
+        // FUNCTION TO PERFORM BACKSPACE OPERAITON
         function PerformBackSpace() {
             let output = document.getElementById("resultx")
 
@@ -347,15 +352,15 @@
         }
 
 
-        // TO RESET THE VALUES IN OBJECT ....
+        // FUNCTION TO RESET THE VALUES IN OBJECT ....
         let reset = () => {
             obj.firstNumber = "0";
             obj.secondNumber = "0";
             obj.operator = "";
             renderUI();
         }
+        
         // CALL RENDER UI FUNCTION .....
-
         renderUI()
     </script>
 </body>

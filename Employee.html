@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainDiv1 {
+            background-color: aqua;
+            border: 3px solid black;
+            height: calc(7vh - 6px);
+            text-align: left;
+            display: flex;
+        }
+
+        #title {
+            text-align: left;
+            width: calc(100vw);
+        }
+
+        #cDetails {
+            justify-content: center;
+            border: 3px solid black;
+            background-color: aqua;
+        }
+
+        #mainDiv4 {
+            display: flex;
+            background-color: blueviolet;
+            border: 2px solid black;
+            height: calc(93vh - 4px);
+        }
+
+        #mainDiv2 {
+            background-color: antiquewhite;
+            border: 2px solid black;
+            width: calc(30vw - 2px);
+        }
+
+        #mainDiv3 {
+            background-color: antiquewhite;
+            border: 2px solid black;
+            width: calc(70vw - 2px);
+            align-items: center;
+        }
+
+
+        .button {
+            height: 30px;
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root">
+
+    </div>
+
+
+    <script>
+
+        let employees = {}
+        let id = 1;
+        tempObj = {
+            Eid: "",
+            Ename: "",
+            Esalary: "",
+            Edesignation: "",
+            EdepatID: ""
+        }
+
+
+        function renderUI() {
+            let rootElement = document.getElementById("root")
+
+            rootElement.innerHTML = " "
+
+            /*                                             ********************************                                         */
+            let mainDiv1 = document.createElement("div")
+            mainDiv1.id = "mainDiv1"
+
+            let title = document.createElement("div")
+            title.id = "title"
+            title.textContent = "AYS SOFTWARE SOLUTION : THE THOUGHTFUL MINDS"
+
+            let ComDetails = document.createElement('button')
+            ComDetails.id = "cDetails"
+            ComDetails.textContent = "(=)"
+
+            ComDetails.addEventListener("click", function () {
+                CompDetails();
+            })
+
+
+            mainDiv1.appendChild(title)
+            mainDiv1.appendChild(ComDetails)
+
+            rootElement.appendChild(mainDiv1)
+
+            /*                           *************Main Div2************************                                  */
+
+            let mainDiv2 = document.createElement("div")
+            mainDiv2.id = "mainDiv2"
+
+            let addEmployee = document.createElement("button")
+            addEmployee.id = "addEmployee"
+            addEmployee.textContent = "ADD Employee"
+
+            addEmployee.addEventListener("click", createForm)
+
+            mainDiv2.appendChild(addEmployee)
+
+
+
+            /*                     *************Main Div3***************                             */
+            let mainDiv3 = document.createElement("div")
+            mainDiv3.id = "mainDiv3"
+
+            let mainDiv4 = document.createElement("div")
+            mainDiv4.id = "mainDiv4"
+            mainDiv4.appendChild(mainDiv2)
+            mainDiv4.appendChild(mainDiv3)
+            rootElement.appendChild(mainDiv4)
+
+        }
+
+        /*              ************** RenderUI Function End ********************                     */
+
+        function CompDetails() {
+            let cdetails = document.createElement("div")
+            cdetails.textContent = "In an object Add Company Details and display it in div3"
+        }
+
+        /*                       *************** Function To Create Form *****************                            */
+
+        function createForm() {
+
+            mainDiv3.innerHTML = ""
+            let form = document.createElement("div")
+            form.id = "form"
+            let nameLabel = document.createElement("label")
+            nameLabel.textContent = "Employee Name"
+
+            let input1 = document.createElement("input");
+            input1.type = "text";
+            input1.id = "myInput";
+            input1.placeholder = "Enter only characters and spaces";
+            input1.addEventListener("input", function () {
+                updateTempObj(input1.value)
+            })
+
+
+            let salaryLabel = document.createElement("label")
+            salaryLabel.textContent = "Employee's Salary"
+
+            let input2 = document.createElement("input");
+            input2.type = "text";
+            input2.id = "myInput";
+            input2.addEventListener("input", function () {
+                updateTempObjSalary(input2.value)
+            })
+
+
+            let DLabel = document.createElement("label")
+            DLabel.textContent = "Employee's Designation"
+
+            let input3 = document.createElement("input");
+            input3.type = "text";
+            input3.id = "myInput";
+            input3.placeholder = "Enter Employee's Designation";
+            input3.addEventListener("input", function () {
+                updateTempObjDesignation(input3.value)
+            })
+
+            let DeptID = document.createElement("label")
+            DeptID.textContent = "Employee's Department ID"
+
+            let input4 = document.createElement("input");
+            input3.type = "text";
+            input3.id = "myInput";
+            input4.addEventListener("input", function () {
+                updateTempObjDeptID(input4.value)
+            })
+
+
+            let submitButton = document.createElement("button")
+            submitButton.textContent = "Submit"
+            submitButton.id = "submit"
+
+            submitButton.addEventListener("click", function () {
+                let Eid = id;
+                tempObj.Eid = Eid;
+                addEmp(tempObj)
+                console.log(employees)
+                mainDiv3.innerHTML = ""
+                mainDiv3.textContent = "Employee Added Successfully"
+                Buttons(id)
+
+            })
+
+            form.appendChild(nameLabel)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input1)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(salaryLabel)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input2)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(DLabel)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input3)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(DeptID)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(input4)
+            form.appendChild(document.createElement("br"))
+            form.appendChild(document.createElement("br"))
+            form.appendChild(submitButton)
+
+            mainDiv3.appendChild(form)
+
+
+
+
+        }
+
+
+        /*                                    ************* TO ADD Employee ****************   */
+        addEmp = (tempObj) => {
+            if (employees[id] === undefined) {
+                employees[id] = tempObj;
+                id++;
+            }
+
+        }
+
+        /*                                  ********** To Delete the Employee ***********          */
+        function deleteEmp(id) {
+
+            if (employees[id]) {
+                delete employees[id]
+                mainDiv3.textContent = "Deleted Successfully"
+            }
+        }
+
+        /*                         *************** Updated The Emp Details **************           */
+        // function editEmp(Id, property) {
+        //     if (Employees[Id]) {
+        //         Employees[Id] = { ...Employees[Id], ...property }
+        //         msg = `Employee Details Updated Successfully`
+        //     }
+        // }
+
+
+        /*                        ******* Emp Details *********                                    */
+
+        function empDetails(id) {
+            console.log(id)
+            const mainDiv3 = document.getElementById("mainDiv3")
+            mainDiv3.innerHTML = ""
+
+            for (let key in employees[id]) {
+                let displayEmpDetails = document.createElement("div")
+                displayEmpDetails.textContent = ` ${key} :  ${employees[id][key]}`
+                mainDiv3.appendChild(displayEmpDetails)
+            }
+        }
+        /*              ********* Update The Temp Obj Values with input field in form **************                */
+
+        function updateTempObj(name) {
+            tempObj.Ename = name;
+        }
+
+        function updateTempObjSalary(salary) {
+            tempObj.Esalary = salary;
+        }
+
+        function updateTempObjDesignation(designation) {
+            tempObj.Edesignation = designation;
+        }
+
+        function updateTempObjDeptID(DeptID) {
+            tempObj.EdepatID = DeptID;
+        }
+
+
+        function Buttons(id) {
+            let Eid = id;
+            let subDiv1 = document.createElement("div")
+            let empButton = document.createElement("button")
+            empButton.className = "button"
+            empButton.textContent = employees[id].Ename
+            empButton.addEventListener("click", function () {
+                empDetails(employees[id].Eid);
+            })
+
+            let DeleteButton = document.createElement("button")
+            DeleteButton.className = "button"
+            DeleteButton.textContent = "Delete"
+
+            DeleteButton.addEventListener("click", function () {
+                deleteEmp(id);
+                subDiv1.removeChild(empButton)
+                subDiv1.removeChild(DeleteButton)
+                console.log(employees)
+            })
+
+            subDiv1.appendChild(empButton)
+            subDiv1.appendChild(DeleteButton)
+            mainDiv2.appendChild(subDiv1)
+        }
+
+        renderUI()
+    </script>
+</body>
+
+</html>

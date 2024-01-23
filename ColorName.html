@@ -55,7 +55,6 @@
 
     <script>
         // CREATED THE OBJECT TO STORE OUR DATA
-
         let data = {
             text: "",
             color: "",
@@ -85,15 +84,12 @@
                 button.style.margin = "5px",
                     div1.appendChild(button)
             }
+
             // CALLING THE FUNCTION FOR EACH COLOR TO CREATE THE BUTION
 
             colorArray.forEach(color => {
                 createButton(color);
             });
-
-            // APPENDED THE DIV TO THE ROOT DIV AS A CHILD
-
-            rootElement.appendChild(div1)
 
             // ADDED THE EVENT LISTENER TO THE DIV 1 WITH OBJECT OF EVENT
 
@@ -139,8 +135,8 @@
             input1.type = "text"
             enter_text.appendChild(input1)
             mainDiv2.appendChild(enter_text)
-            // MAINDIV2 APPENDED TO THE ROOT DIV
-            rootElement.appendChild(mainDiv2)
+            
+            
             // CREATED THE MAIN DIV 3 FOR SUBMIT AND RESET BUTTON
             let mainDiv3 = document.createElement("div")
             mainDiv3.id = "div3"
@@ -153,25 +149,33 @@
             resetButton.type = "button";
             resetButton.textContent = "Reset"
             mainDiv3.appendChild(resetButton)
-            // BOTH GETS APPENDED TO MAINDIV3 AND THEN MAINDIV3 APPENDED TO THE ROOT DIV
-            rootElement.appendChild(mainDiv3)
+            
             // CREATED THE RESULT DIV FOR DISPLAY THE RESULT
             let result = document.createElement("div")
             let resultLabel = document.createElement("label")
             result.textContent = "Entered Text Is : ";
             resultLabel.id = "resultx"
             result.appendChild(resultLabel)
-            root.appendChild(result)
+
+
+            //  ALL MAINDIV APPENDED TO THE ROOT DIV
+            rootElement.appendChild(div1)
+            rootElement.appendChild(mainDiv2)
+            rootElement.appendChild(mainDiv3)
+            rootElement.appendChild(result)
+
+
             // SUBMIT BUTTON TO DISPLAY THE RESULT
             submitButton.addEventListener("click", function () {
                 display();
             })
             // RESET BUTTON TO CLEAR THE OBJECT AND RENDER THE UI
             resetButton.addEventListener("click", function () {
-                data.color = ""
-                data.text = ""
-                renderUI();
+                rSetObj();
             })
+
+
+
 
             // FUNCTION TO UPDATE THE TEXT IN OBJECT
             function updateObject(text) {
@@ -181,6 +185,14 @@
             function updateColorObj(color) {
                 data.color = color;
             }
+
+            // FUNCTION TO RESET THE VALUES 
+            function rSetObj() {
+                data.color = ""
+                data.text = ""
+                renderUI();
+            }
+
             // FUNCTION TO DISPLAY THE RESULT
             function display() {
                 const outputx = document.querySelector("#resultx")
