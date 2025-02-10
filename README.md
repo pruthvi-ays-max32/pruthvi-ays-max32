@@ -4,7 +4,7 @@
 - 👨‍💻 Full-Stack Developer based in Pune, India.
 - 📫 How to reach me: [pruthavirajsuryawanshi07@gmail.com](pruthavirajsuryawanshi07@gmail.com)
 - 🔗 Rocking a cool **400+ connections** on LinkedIn, let's connect!
-- 🚀 Development sparked my coding passion—now it's a lifelong affair! Dive into my digital journey in the [portfolio](#)! 💻❤️
+- 🚀 Development sparked my coding passion—now it's a lifelong affair! Dive into my digital journey in the [portfolio](https://goto.now/S2e5i)! 💻❤️
 
 <h3 align="left">📲 Connect with me:</h3>
 <div align="left">
