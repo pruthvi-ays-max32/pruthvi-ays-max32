@@ -1,7 +1,7 @@
 <h1 align="left">👋 Hi, I'm <a href="#" target="_blank"> Pruthaviraj Suryawanshi </a></h1>
 <!-- <h3 align="center"> <img src="https://readme-typing-svg.herokuapp.com?color=0357F7&lines=Full+Stack+Developer+%3A)" /> </h3> -->
 
-- 👨‍💻 Full-Stack Developer based in Pune, India.
+- 👨‍💻 Java Full-Stack Developer based in Pune, India.
 - 📫 How to reach me: [pruthavirajsuryawanshi07@gmail.com](pruthavirajsuryawanshi07@gmail.com)
 - 🔗 Rocking a cool **400+ connections** on LinkedIn, let's connect!
 - 🚀 Development sparked my coding passion—now it's a lifelong affair! Dive into my digital journey in the [portfolio](https://goto.now/S2e5i)! 💻❤️
